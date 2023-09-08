@@ -2,6 +2,7 @@ package com.example.carstore.controller;
 
 import com.example.carstore.Repository.CarRepository;
 import com.example.carstore.models.Car;
+import com.example.carstore.models.CarBuyer;
 import com.example.carstore.models.CarType;
 import com.example.carstore.models.Customer;
 import jakarta.annotation.PostConstruct;
@@ -38,9 +39,22 @@ public class CarController {
                orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not found")));
     }
 
-    @PostMapping("/weus")
-    public void buyCar (@RequestBody Customer customer, @RequestParam long id) {
-        carRepository.findByID(id);
+    @GetMapping("/carbuyers")
+    public List<CarBuyer> getCarBuyer() {
+        return carRepository.getCarBuyers();
+    }
+
+    @GetMapping("/getCustomerInfo")
+    public List<Customer> getListCustomer() {
+        return carRepository.getListCustomers();
+    }
+
+    @PostMapping("/buycar")
+    public String buyCar (@RequestBody Customer customer, @RequestParam Long id) {
+        if(carRepository.buyCar(id, customer)) {
+            return "Successfully bought a car";
+        }
+        return "encountered a problem";
     }
 
 
