@@ -1,2 +1,5 @@
-package com.example.carstore.models;public enum Type {
+package com.example.carstore.models;
+
+public enum CarType {
+    AUTO, MANUAL
 }
