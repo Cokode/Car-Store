@@ -1,6 +1,8 @@
 package com.example.carstore.models;
 
-public record Car(Long id,
+import jakarta.validation.constraints.NotEmpty;
+
+public record Car(@NotEmpty Long id,
                   int year,
                   String name,
                   CarType carType,

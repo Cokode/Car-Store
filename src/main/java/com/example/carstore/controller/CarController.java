@@ -6,6 +6,7 @@ import com.example.carstore.models.CarBuyer;
 import com.example.carstore.models.CarType;
 import com.example.carstore.models.Customer;
 import jakarta.annotation.PostConstruct;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/car/home")
 public class CarController {
-    CarRepository carRepository;
+    private final CarRepository carRepository;
 
     @Autowired
     public CarController (CarRepository carRepository) {
@@ -50,13 +52,12 @@ public class CarController {
     }
 
     @PostMapping("/buycar")
-    public String buyCar (@RequestBody Customer customer, @RequestParam Long id) {
+    public String buyCar (@Valid @RequestBody Customer customer, @RequestParam Long id) {
         if(carRepository.buyCar(id, customer)) {
-            return "Successfully bought a car";
+            return String.format("%s successfully bought a car", customer.getNames());
         }
-        return "encountered a problem";
+        return String.format("Sorry %s! We encountered a problem with your purchase.", customer.getNames());
     }
-
 
     @PostConstruct
     public void cars() {
@@ -83,7 +84,7 @@ public class CarController {
         Car mercedes = new Car(263728L,
                 2020,
                 "mercedes Benz",
-                CarType.AUTO,
+                CarType.MANUAL,
                 52800,
                 "In-line 4-cylinder engine with Lexus Hybrid Drive",
                 "Electronically controlled Continuously Variable Transmission (ECVT)",

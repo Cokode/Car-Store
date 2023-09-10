@@ -14,17 +14,6 @@ public class Customer {
     private int carsOwned = 0;
     private List<Car> ListCarsBought = new ArrayList<>();
 
-//    public Customer() {
-//        this.id = 837383L;
-//        this.names = "Collins Chinedu Amalimeh";
-//        this.country = "Hungary";
-//        this.address = "31/B Sostoi ut Nyiregyhaza";
-//        this.age = 45;
-//        this.accountBalance = 294839;
-//        this.carsOwned = 0;
-//        this.ListCarsBought = new ArrayList<>();
-//    }
-
     public Customer(long id,
                     String names,
                     String country,
@@ -37,12 +26,27 @@ public class Customer {
         this.address = address;
     }
 
+    public Customer() {
+    }
+
     public long getId() {
         return id;
     }
 
     public String getNames() {
         return names;
+    }
+
+    public long getAccountBalance() {
+        return accountBalance;
+    }
+
+    public void setAccountBalance(int amount) {
+        this.accountBalance -= amount;
+    }
+
+    public void setCarsOwned(int num) {
+        this.carsOwned += num;
     }
 
     public String getCountry() {
@@ -57,24 +61,12 @@ public class Customer {
         return age;
     }
 
-    public long getAccountBalance() {
-        return accountBalance;
-    }
-
     public int getCarsOwned() {
         return carsOwned;
     }
 
     public List<Car> getListCarsBought() {
         return ListCarsBought;
-    }
-
-    public void setAccountBalance(int amount) {
-        if(amount > 0 ) this.accountBalance -= amount;
-    }
-
-    public void setCarsOwned(int num) {
-        this.carsOwned += num;
     }
 
     public void setListCarsBought(Car car) {
